@@ -1,0 +1,42 @@
+import random
+
+from sqlalchemy import func
+from sqlalchemy.orm import sessionmaker
+
+from models import User, engine
+
+Session = sessionmaker(bind=engine)
+session = Session()
+
+users_tuple = (
+    session.query(User.age, func.count(User.id))
+    .filter(User.age >= 30)
+    .order_by(User.age.desc())
+    .filter(User.age <= 60)
+    .group_by(User.age)
+    .all()
+)
+
+for age, count in users_tuple:
+    print(f"Age: {age}, Count: {count}")
+
+
+
+
+only_Michael = True
+
+group_by_age = True
+
+users = session.query(User.name, User.age)
+
+if only_Michael:
+    users = users.filter(User.name == "Michael")
+
+if group_by_age:
+    users = users.group_by(User.age)
+
+users = users.all()
+
+for user in users:
+    print(f"Name: {user.age}, Age: {user.name}")
+

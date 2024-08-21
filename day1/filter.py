@@ -20,5 +20,3 @@ print(f"Users with age >= 50: {len(users)}")
 users = session.query(User).filter(User.age >= 50, User.name == 'Aryan').all()
 
 print(f"Users with age >= 50 and name == 'Aryan': {len(users)}")
-
-# Query all users filtered by age >= 50 or name == 'Aryan'
